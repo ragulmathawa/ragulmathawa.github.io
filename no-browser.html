@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Get Authorization Code</title>
+        <style>
+            body {
+                text-align: center;
+            }
+            .heading {
+                background-color: #162A38;
+            }
+        </style>
+    </head>
+    <body>
+        <div id='parent' style="padding-top: 10px;">
+            <div id='success'>
+                <div style="padding-left: 20%;">
+                    <p style="border: 2px solid; border-radius:6px; width:600px">
+                        <input type="text" id="ac" onclick="this.focus();this.select();" style="width:600px; background-color:rgb(124, 255, 168); text-align:center; font-size: 14px;" readonly/>
+                    </p>
+                </div>
+            </div>
+            <div id='fail' style="padding-left: 20%;">
+                <p style="background-color:rgb(255, 128, 128); border: 2px solid; border-radius:6px; width:600px; text-align:center; font-size: 16px;">Failed to get the Authorization Code, please try again.</p>
+            </div>
+        </div>
+        <script>
+            var parent = document.getElementById('parent');
+            var urlAddress = window.location.href;
+            var re = /code=([a-zA-Z0-9\-]+?)&/;
+            var authCode = re.exec(urlAddress);
+            if (!authCode) {
+                var deleteDiv = document.getElementById('success');
+                parent.removeChild(deleteDiv);
+            } else {
+                var deleteDiv = document.getElementById('fail');
+                parent.removeChild(deleteDiv);
+                document.getElementById("ac").value = authCode[1];
+            }
+        </script>
+    </body>
+</html>
